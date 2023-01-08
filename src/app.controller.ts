@@ -1,13 +1,19 @@
 import { Controller, Get } from '@nestjs/common';
-import { ModuleRef } from '@nestjs/core';
-import { AppService } from './app.service';
+import { TestNotification, TestRequest } from 'src/app.noti';
+import { Mediator } from 'src/mediator/mediator.service';
 
 @Controller('app')
 export class AppController {
-  constructor(private readonly appService: AppService, ref: ModuleRef) {}
+  constructor(private mediator: Mediator) {}
 
   @Get()
-  getHello() {
-    return this.appService.getHello();
+  get() {
+    const noti = new TestNotification();
+    noti.id = 1;
+
+    const ttest = new TestRequest();
+    ttest.id = 2;
+    this.mediator.send(ttest);
+    return this.mediator.publish(noti);
   }
 }

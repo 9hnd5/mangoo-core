@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Context } from 'src/context/context.model';
 import { HttpModuleOptions, HTTP_MODULE_OPTIONS_TOKEN } from 'src/http/http.module-definition';
@@ -18,19 +18,82 @@ export class HttpService {
     return config;
   }
 
-  get<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
-    return axios.get(url, this.genConfig<D>(config));
+  async get<T = any, R = AxiosResponse<T, any>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
+    try {
+      return await axios.get<T, R, D>(url, this.genConfig<D>(config));
+    } catch (err) {
+      if (err.response) {
+        const { data, status } = err.response;
+        throw new HttpException(data, status);
+      } else if (err.request) {
+        throw new HttpException(err.toJSON(), HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
   }
-  post<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
-    return axios.post(url, data, this.genConfig<D>(config));
+  async post<T = any, R = AxiosResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig<D>,
+  ): Promise<R> {
+    try {
+      return await axios.post<T, R, D>(url, data, this.genConfig<D>(config));
+    } catch (err) {
+      if (err.response) {
+        const { data, status } = err.response;
+        throw new HttpException(data, status);
+      } else if (err.request) {
+        throw new HttpException(err.toJSON(), HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
   }
-  put<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
-    return axios.put(url, data, this.genConfig<D>(config));
+  async put<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
+    try {
+      return await axios.put<T, R, D>(url, data, this.genConfig<D>(config));
+    } catch (err) {
+      if (err.response) {
+        const { data, status } = err.response;
+        throw new HttpException(data, status);
+      } else if (err.request) {
+        throw new HttpException(err.toJSON(), HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
   }
-  patch<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R> {
-    return axios.patch(url, data, this.genConfig<D>(config));
+  async patch<T = any, R = AxiosResponse<T>, D = any>(
+    url: string,
+    data?: D,
+    config?: AxiosRequestConfig<D>,
+  ): Promise<R> {
+    try {
+      return await axios.patch<T, R, D>(url, data, this.genConfig<D>(config));
+    } catch (err) {
+      if (err.response) {
+        const { data, status } = err.response;
+        throw new HttpException(data, status);
+      } else if (err.request) {
+        throw new HttpException(err.toJSON(), HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
   }
-  delete<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
-    return axios.delete(url, this.genConfig<D>(config));
+  async delete<T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R> {
+    try {
+      return await axios.delete<T, R, D>(url, this.genConfig<D>(config));
+    } catch (err) {
+      if (err.response) {
+        const { data, status } = err.response;
+        throw new HttpException(data, status);
+      } else if (err.request) {
+        throw new HttpException(err.toJSON(), HttpStatus.INTERNAL_SERVER_ERROR);
+      } else {
+        throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    }
   }
 }

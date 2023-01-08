@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from 'src/app.controller';
-import { AppService } from 'src/app.service';
-import { ContextModule } from 'src/context/context.module';
-import { HttpModule } from 'src/http/http.module';
+import { TestNotificationHandler1, TestRequestHandler } from 'src/app.noti';
+import { MediatorModule } from 'src/mediator/mediator.module';
 
 @Module({
-  imports: [ContextModule, HttpModule.register({ injectToken: true })],
+  imports: [MediatorModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [TestNotificationHandler1, TestRequestHandler],
 })
 export class AppModule {}

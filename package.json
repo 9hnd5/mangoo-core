@@ -1,6 +1,6 @@
 {
   "name": "mangoo-core",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "",
   "author": "Huy Nguyen",
   "private": false,
@@ -16,7 +16,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "nest start --watch --path tsconfig.json",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -32,6 +32,8 @@
     "@nestjs/cqrs": "^9.0.1",
     "@nestjs/platform-express": "^9.0.0",
     "axios": "^1.2.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -44,6 +46,7 @@
     "@types/jest": "28.1.8",
     "@types/node": "^16.0.0",
     "@types/supertest": "^2.0.11",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
